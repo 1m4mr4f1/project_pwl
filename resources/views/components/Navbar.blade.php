@@ -61,13 +61,13 @@
 
 <div class="navbar-custom">
 
-<nav class="navbar navbar-expand-lg  px-3 py-4">
+<nav class="navbar navbar-expand-lg  px-3 py-3">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
             <img src="https://portal.dinus.ac.id/assets/images/logo_dinus_new.png" alt="Logo" width="110" class="d-inline-block align-text-top">
         </a>
-        <h1 class="fs-1 fw-bold poppins text-white">E - Poliklinik Udinus</h1>
+        <h1 class="fs-2 fw-bold poppins text-white">E - Poliklinik Udinus</h1>
 
         <!-- Button Toggle Navbar untuk Mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -97,24 +97,16 @@
     </div>
 </nav>
 
-<div class="hero-box py-4">
-    <p class="poppins fw-semibold text-white text-center" style="font-size: 3.5rem;">
+<div class="hero-box py-3">
+    <p class="poppins fw-semibold fs-2 text-white text-center">
         Udinus Sehat, Udinus Kuat!
     </p>
-    <div class="container d-flex justify-content-center mt-3 pb-5">
+    <div class="container d-flex justify-content-center mt-2 pb-3">
         <div class="card custom-card shadow r-5 w-75">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Mau konsultasi kesehatan?</h4>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle r-3 text-dark"
-                        style="background-color: rgb(250, 250, 2); border: none;"
-                        type="button" data-bs-toggle="dropdown">
-                        Pilih Poli
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Poli Umum</a></li>
-                        <li><a class="dropdown-item" href="#">Poli Gigi</a></li>
-                    </ul>
+                <div>
+                    <a href="/FormulirDaftar" class="btn r-3 text-dark" style="background-color: yellow">Daftar Sekarang</a>
                 </div>
             </div>
         </div>
