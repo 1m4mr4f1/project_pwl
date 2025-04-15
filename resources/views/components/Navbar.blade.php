@@ -78,19 +78,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto poppins fw-light ">
                 <li class="nav-item">
-                    <a class="nav-link fs-5 active " href="#">Home</a>
+                    <a class="nav-link fs-5 active " href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">About</a>
+                    <a class="nav-link fs-5" href="#AboutUs">Tentang Kami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">Service</a>
+                    <a class="nav-link fs-5" href="#OurService">Pelayanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">Tutorial</a>
+                    <a class="nav-link fs-5" href="#OurDoctors">Dokter Kami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">Fitur</a>
+                    <a class="nav-link fs-5" href="#Antrian">Antrian</a>
                 </li>
             </ul>
         </div>

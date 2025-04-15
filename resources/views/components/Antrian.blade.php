@@ -1,6 +1,6 @@
 <div class="container mt-5 pb-3">
     <div class="card p-4 shadow-lg">
-        <h2 class="text-center mb-4">📋 Antrian Hari Ini</h2>
+        <h2 class="text-center mb-4" id="Antrian">📋 Antrian Hari Ini</h2>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-center">

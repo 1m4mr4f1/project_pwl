@@ -47,13 +47,13 @@
 </head>
 <body>
 
-<section class="container hero-section full-width pt-5">
+<section id="AboutUs" class="container hero-section full-width pt-5">
     <div class="row align-items-center">
         <!-- Bagian Teks -->
         <div class="col-md-6 hero-text">
             <h1>Klinik 24 siap melayani keluhan masyarakat selama 24/7.</h1>
             <p>Rumah sakit adalah bagian integral dari suatu organisasi sosial dan kesehatan dengan fungsi menyediakan pelayanan paripurna (komprehensif).</p>
-            <a href="#" class="btn hero-btn">
+            <a href="#OurService" class="btn hero-btn">
                 <i class="bi bi-stethoscope"></i> Lihat Layanan
             </a>
         </div>

@@ -8,12 +8,12 @@
 </head>
 <body>
     <x-Navbar></x-Navbar>
-    <x-AboutUs></x-AboutUs>
-    <x-PelayananKami></x-PelayananKami>
-    <x-OurDoctors></x-OurDoctors>
-    <x-Antrian></x-Antrian>
+    <x-AboutUs id="AboutUs"></x-AboutUs>
+    <x-PelayananKami id="OurService"></x-PelayananKami>
+    <x-OurDoctors id="OurDoctors"></x-OurDoctors>
+    <x-Antrian id="Antrian"></x-Antrian>
 
-    <a href="Daftar">daftar</a>
+
 
 
     <x-Footer></x-Footer>

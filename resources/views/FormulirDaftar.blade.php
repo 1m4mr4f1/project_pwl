@@ -24,36 +24,48 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 d-flex shadow-lg p-4 custom-card">
-            <!-- Bagian Gambar -->
-            <div class="col-3 d-flex align-items-center">
-                <img src="https://serbakuliahan.wordpress.com/wp-content/uploads/2019/10/img20191016073509.jpg?w=1024"
-                     alt="Gambar" class="img-fluid rounded">
-            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 d-flex shadow-lg p-4 custom-card">
+                <!-- Bagian Gambar -->
+                <div class="col-3 d-flex align-items-center">
+                    <img src="https://serbakuliahan.wordpress.com/wp-content/uploads/2019/10/img20191016073509.jpg?w=1024"
+                         alt="Gambar" class="img-fluid rounded">
+                </div>
 
-            <!-- Bagian Form -->
-            <div class="col-9 ps-4">
-                <h3 class="mb-3 text-center">Formulir Pendaftaran</h3>
-                <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama Anda" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">NIM</label>
-                        <input type="text" class="form-control" id="nim" placeholder="Masukkan NIM Anda" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Daftar</button>
-                </form>
+                <!-- Bagian Form -->
+                <div class="col-9 ps-4">
+                    <h3 class="mb-3 text-center">Formulir Pendaftaran</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nim" class="form-label">NIM</label>
+                            <input type="text" class="form-control" id="nim" placeholder="Masukkan NIM Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="poli" class="form-label">Pilih Poli</label>
+                            <select class="form-select" id="poli" required>
+                                <option value="" disabled selected>-- Pilih Poli --</option>
+                                <option value="gigi">Poli Gigi</option>
+                                <option value="umum">Poli Umum</option>
+                                <option value="gizi">Poli Gizi</option>
+                                <option value="kesehatan-mental">Poli Kesehatan Mental</option>
+                            </select>
+                        </div>
 
-                <!-- Tombol Kembali ke Home -->
-                <a href="/" class="btn btn-secondary w-100 mt-3">Kembali ke Home</a>
+                        <a href="/" class="btn btn-primary w-100 mt-3">Daftar sekarang</a>
+                    </form>
+
+                    <!-- Tombol Kembali ke Home -->
+                    <a href="/" class="btn btn-secondary w-100 mt-3">Kembali ke Home</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
