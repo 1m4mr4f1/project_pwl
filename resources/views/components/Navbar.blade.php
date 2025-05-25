@@ -59,9 +59,15 @@
 
     </style>
 
-<div class="navbar-custom">
+<!-- Tambahan untuk top padding -->
+<style>
+    body {
+        padding-top: 100px;
+    }
+</style>
 
-<nav class="navbar navbar-expand-lg  px-3 py-3">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom px-3 py-3">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -76,15 +82,18 @@
 
         <!-- Menu -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto poppins fw-light ">
+            <ul class="navbar-nav ms-auto poppins fw-light">
                 <li class="nav-item">
-                    <a class="nav-link fs-5 active " href="/">Beranda</a>
+                    <a class="nav-link fs-5 active" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5" href="#AboutUs">Tentang Kami</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5" href="#OurService">Pelayanan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-5" href="#JadwalDokter">Jadwal Dokter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5" href="#OurDoctors">Dokter Kami</a>
@@ -96,24 +105,4 @@
         </div>
     </div>
 </nav>
-
-<div class="hero-box py-3">
-    <p class="poppins fw-semibold fs-2 text-white text-center">
-        Udinus Sehat, Udinus Kuat!
-    </p>
-    <div class="container d-flex justify-content-center mt-2 pb-3">
-        <div class="card custom-card shadow r-5 w-75">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">Mau konsultasi kesehatan?</h4>
-                <div>
-                    <a href="/FormulirDaftar" class="btn r-3 text-dark" style="background-color: yellow">Daftar Sekarang</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-</div>
 

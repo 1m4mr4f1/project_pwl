@@ -47,6 +47,7 @@
 
 <section class="text-center py-3">
     <div class="container">
+
         <h2 class="fw-bold fs-1 poppins pt-4 pb-1" style="color: #5a67d8" id="OurService" >Pelayanan Kami </h2>
         <p class="text-muted pb-4">
             Kami siap memberikan layanan kesehatan yang mudah, cepat, dan nyaman.<br>
