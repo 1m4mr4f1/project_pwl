@@ -3,23 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Mahasiswa; // ✅ Tambahkan ini
+use App\Models\Mahasiswa;
 
 class AdminController extends Controller
 {
     // Menampilkan halaman dashboard admin
     public function index()
     {
-        // Cek apakah admin sudah login
         if (!session('admin')) {
             return redirect()->route('login');
         }
 
-        // Tampilkan halaman dashboard
-        return view('admin.dashboard');
+        $mahasiswa = Mahasiswa::all();
+        return view('admin.dashboard', compact('mahasiswa'));
     }
 
-    // Menampilkan daftar mahasiswa dari tabel
+    // Jika nanti ingin halaman khusus kelola mahasiswa
     public function kelolaMahasiswa()
     {
         $mahasiswa = Mahasiswa::all();

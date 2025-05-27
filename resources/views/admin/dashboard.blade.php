@@ -78,11 +78,11 @@
 
 
 
-<!-- SECTION: Dokter -->
+<!-- SECTION: Mahasiswa -->
 <div class="mb-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4>Manajemen Mahasiswa</h4>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahDokter">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahMahasiswa">
             <i class="bi bi-plus-circle"></i> Tambah Mahasiswa
         </button>
     </div>
@@ -92,22 +92,91 @@
             <tr>
                 <th>Nama</th>
                 <th>NIM</th>
-                <th>Angkatan</th>
+                <th>Prodi</th>
+                <th>Status Aktif</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($mahasiswa as $mhs)
             <tr>
-                <td>Muhammad Imam Rafi</td>
-                <td>A11.2023.11111</td>
-                <td>2023</td>
+                <td>{{ $mhs->nama }}</td>
+                <td>{{ $mhs->nim }}</td>
+                <td>{{ $mhs->prodi }}</td>
+                <td>{{ $mhs->status_aktif ? 'Aktif' : 'Tidak Aktif' }}</td>
                 <td>
-                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditDokter"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapusDokter"><i class="bi bi-trash"></i></button>
+                    <!-- Edit Button (opsional) -->
+                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditMahasiswa{{ $mhs->nim }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                    <!-- Delete Form -->
+                    <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus mahasiswa ini?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
+
+            <!-- Modal Edit Mahasiswa -->
+            <div class="modal fade" id="modalEditMahasiswa{{ $mhs->nim }}" tabindex="-1">
+              <div class="modal-dialog">
+                <form action="{{ route('mahasiswa.update', $mhs->nim) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Edit Mahasiswa</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                      <input name="nama" class="form-control mb-2" value="{{ $mhs->nama }}" placeholder="Nama" required>
+                      <input name="prodi" class="form-control mb-2" value="{{ $mhs->prodi }}" placeholder="Prodi" required>
+                      <select name="status_aktif" class="form-control" required>
+                        <option value="1" {{ $mhs->status_aktif ? 'selected' : '' }}>Aktif</option>
+                        <option value="0" {{ !$mhs->status_aktif ? 'selected' : '' }}>Tidak Aktif</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            @endforeach
         </tbody>
     </table>
+</div>
+
+<!-- Modal Tambah Mahasiswa -->
+<div class="modal fade" id="modalTambahMahasiswa" tabindex="-1">
+  <div class="modal-dialog">
+    <form action="{{ route('mahasiswa.store') }}" method="POST">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Mahasiswa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input name="nim" class="form-control mb-2" placeholder="NIM" required>
+          <input name="nama" class="form-control mb-2" placeholder="Nama" required>
+          <input name="prodi" class="form-control mb-2" placeholder="Prodi" required>
+          <select name="status_aktif" class="form-control" required>
+            <option value="1">Aktif</option>
+            <option value="0">Tidak Aktif</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Tambah</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
