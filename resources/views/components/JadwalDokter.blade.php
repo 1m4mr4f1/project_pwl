@@ -1,4 +1,5 @@
-<h2 class="fw-bold fs-1 poppins pt-4 pb-1 text-center" style="color: #5a67d8" id="OurDoctors">Jadwal Dokter</h2>
+<h1 id="JadwalDokter"></h1>
+<h2 class="fw-bold fs-1 poppins pt-4 pb-1 text-center" style="color: #5a67d8" id="JadwalDokter">Jadwal Dokter</h2>
 
 <div class="container mt-5 pb-3">
     <div class="card p-4 shadow-lg">

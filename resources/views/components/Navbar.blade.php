@@ -84,7 +84,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto poppins fw-light">
                 <li class="nav-item">
-                    <a class="nav-link fs-5 active" href="/">Beranda</a>
+                    <a class="nav-link fs-5" href="#">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5" href="#AboutUs">Tentang Kami</a>
