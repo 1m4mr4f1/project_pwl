@@ -5,14 +5,25 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PoliklinikController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\HomeController;
 
-// Dashboard Admin
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
 
 // Halaman Utama
-Route::get('/', function () {
-    return view('Home');
-});
+Route::get('/admin/dokter', [DokterController::class, 'index'])->name('dokter.index');
+Route::post('/admin/dokter', [DokterController::class, 'store'])->name('dokter.store');
+Route::get('/admin/dokter/{id}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
+Route::put('/admin/dokter/{id}', [DokterController::class, 'update'])->name('dokter.update');
+Route::delete('/admin/dokter/{id}', [DokterController::class, 'destroy'])->name('dokter.destroy');
+
+// Simpan data dokter
 
 // Halaman Formulir Pendaftaran
 Route::get('/FormulirDaftar', function () {

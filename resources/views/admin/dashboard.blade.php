@@ -1,3 +1,6 @@
+{{-- Debug --}}
+{{-- @dd($mahasiswa) --}}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,38 +56,57 @@
                 <div class="mt-4 container">
 
                     <!-- SECTION: Dokter -->
-                    <div class="mb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>Manajemen Dokter</h4>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahDokter">
-                                <i class="bi bi-plus-circle"></i> Tambah Dokter
-                            </button>
-                        </div>
+                   <div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Manajemen Dokter</h4>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahDokter">
+            <i class="bi bi-plus-circle"></i> Tambah Dokter
+        </button>
+    </div>
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>Foto</th>
+            <th>Nama</th>
+            <th>Spesialis</th>
+            <th>Deskripsi</th>
+            <th>Poli</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($dokters as $dokter)
+            <tr>
+                <td>
+                    <img src="{{ asset('storage/' . $dokter->foto) }}" class="img-thumbnail" width="60"
+                         onerror="this.src='https://via.placeholder.com/60'" />
+                </td>
+                <td>{{ $dokter->nama }}</td>
+                <td>{{ $dokter->spesialis }}</td>
+                <td>{{ $dokter->deskripsi }}</td>
+                <td>{{ $dokter->poli->nama_poli ?? '-' }}</td>
 
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Foto</th>
-                                    <th>Nama</th>
-                                    <th>Deskripsi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" /></td>
-                                    <td>dr. Chuan We</td>
-                                    <td>Dokter umum berpengalaman dan terpercaya</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditDokter"><i class="bi bi-pencil-square"></i></button>
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalHapusDokter"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <td>
+                    <button class="btn btn-sm btn-warning"
+                            onclick="editDokter({{ $dokter->toJson() }})"
+                            data-bs-toggle="modal" data-bs-target="#modalEditDokter">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <form action="{{ route('dokter.destroy', $dokter->id_dokter) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus dokter ini?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+</div>
+
 
                     <!-- SECTION: Mahasiswa -->
                     <div class="mb-5">
@@ -221,97 +243,201 @@
                             </tbody>
                         </table>
                     </div>
+<!-- Modal Tambah Dokter --><div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" action="{{ route('dokter.store') }}" enctype="multipart/form-data">
+            @csrf
 
-                    <!-- Modal Tambah Dokter -->
-                    <div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTambahDokterLabel">Tambah Dokter</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="fotoDokter" class="form-label">Foto Dokter</label>
-                                        <input type="file" class="form-control" id="fotoDokter" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="namaDokter" class="form-label">Nama Dokter</label>
-                                        <input type="text" class="form-control" id="namaDokter" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="deskripsiDokter" class="form-label">Deskripsi</label>
-                                        <textarea class="form-control" id="deskripsiDokter" rows="3" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-sm btn-danger" type="button"><i
-                                            class="bi bi-x-circle"></i> Batal</button>
-                                    <button class="btn btn-sm btn-primary" type="submit"><i
-                                            class="bi bi-check-circle"></i> Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTambahDokterLabel">Tambah Dokter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- Foto Dokter -->
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto Dokter</label>
+                    <input type="file" class="form-control" name="foto" id="foto">
+                    @error('foto')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <!-- Nama Dokter -->
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama Dokter</label>
+                    <input type="text" class="form-control" name="nama" id="nama" value="{{ old('nama') }}" required>
+                    @error('nama')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <!-- Spesialis -->
+                <div class="mb-3">
+                    <label for="spesialis" class="form-label">Spesialis</label>
+                    <input type="text" class="form-control" name="spesialis" id="spesialis" value="{{ old('spesialis') }}" required>
+                    @error('spesialis')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                    <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3" required>{{ old('deskripsi') }}</textarea>
+                    @error('deskripsi')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <!-- Poli (Dropdown) -->
+                <div class="mb-3">
+                    <select class="form-select" name="id_poli" id="id_poli" required>
+   <option value="" disabled selected>-- Pilih Poli --</option>
+@foreach ($polis as $poli)
+    <option value="{{ $poli->id_poli }}" {{ old('id_poli') == $poli->id_poli ? 'selected' : '' }}>
+        {{ $poli->id_poli }}
+    </option>
+@endforeach
+
+</select>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-danger" type="button" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Batal
+                </button>
+                <button class="btn btn-sm btn-primary" type="submit">
+                    <i class="bi bi-check-circle"></i> Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
                     <!-- Modal Edit Dokter -->
-                    <div class="modal fade" id="modalEditDokter" tabindex="-1" aria-labelledby="modalEditDokterLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalEditDokterLabel">Edit Dokter</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="fotoEditDokter" class="form-label">Foto Dokter</label>
-                                        <input type="file" class="form-control" id="fotoEditDokter" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="namaEditDokter" class="form-label">Nama Dokter</label>
-                                        <input type="text" class="form-control" id="namaEditDokter" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="deskripsiEditDokter" class="form-label">Deskripsi</label>
-                                        <textarea class="form-control" id="deskripsiEditDokter" rows="3" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-sm btn-danger" type="button"><i
-                                            class="bi bi-x-circle"></i> Batal</button>
-                                    <button class="btn btn-sm btn-primary" type="submit"><i
-                                            class="bi bi-check-circle"></i> Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                 <div class="modal fade" id="modalEditDokter" tabindex="-1" aria-labelledby="modalEditDokterLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" enctype="multipart/form-data" id="formEditDokter">
+            @csrf
+            @method('PUT') <!-- Gunakan PUT untuk update -->
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditDokterLabel">Edit Dokter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" name="id_dokter" id="idEditDokter">
+
+                <!-- Foto -->
+                <div class="mb-3">
+                    <label for="fotoEditDokter" class="form-label">Foto Dokter</label>
+                    <input type="file" class="form-control" name="foto" id="fotoEditDokter">
+                </div>
+
+                <!-- Nama -->
+                <div class="mb-3">
+                    <label for="namaEditDokter" class="form-label">Nama Dokter</label>
+                    <input type="text" class="form-control" name="nama" id="namaEditDokter" required>
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="mb-3">
+                    <label for="deskripsiEditDokter" class="form-label">Deskripsi</label>
+                    <textarea class="form-control" name="deskripsi" id="deskripsiEditDokter" rows="3" required></textarea>
+                </div>
+
+                <!-- Spesialis -->
+                <div class="mb-3">
+                    <label for="spesialisEditDokter" class="form-label">Spesialis</label>
+                    <input type="text" class="form-control" name="spesialis" id="spesialisEditDokter" required>
+                </div>
+
+                <!-- ID Poli Dropdown -->
+                <div class="mb-3">
+                    <label for="idPoliEditDokter" class="form-label">Poli</label>
+                    <select class="form-select" name="id_poli" id="idPoliEditDokter" required>
+                        <option value="">-- Pilih Poli --</option>
+                        @foreach($polis as $poli)
+                            <option value="{{ $poli->id_poli }}">{{ $poli->nama_poli }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-danger" type="button" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Batal
+                </button>
+                <button class="btn btn-sm btn-primary" type="submit">
+                    <i class="bi bi-check-circle"></i> Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
                     <!-- Modal Hapus Dokter -->
-                    <div class="modal fade" id="modalHapusDokter" tabindex="-1" aria-labelledby="modalHapusDokterLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalHapusDokterLabel">Hapus Dokter</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Apakah Anda yakin ingin menghapus dokter ini?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-sm btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
-                                    <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                   <div class="modal fade" id="modalHapusDokter" tabindex="-1" aria-labelledby="modalHapusDokterLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" action="" id="formHapusDokter">
+            @csrf
+            @method('DELETE')
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHapusDokterLabel">Hapus Dokter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus dokter ini?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
                 </div>
             </div>
         </div>
-    </div>
+    </div><script>
+    function editDokter(dokter) {
+        document.getElementById('idEditDokter').value = dokter.id_dokter;
+        document.getElementById('namaEditDokter').value = dokter.nama;
+        document.getElementById('spesialisEditDokter').value = dokter.spesialis;
+        document.getElementById('deskripsiEditDokter').value = dokter.deskripsi;
+        document.getElementById('fotoEditDokter').value = '';
+        document.getElementById('idPoliEditDokter').value = dokter.id_poli;
+
+        document.getElementById('formEditDokter').action = `/admin/dokter/${dokter.id_dokter}`;
+    }
+</script>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,3 +1,5 @@
+@props(['dokters'])
+
 <style>
     .custom-btn {
         background-color: #5a67d8;
@@ -58,61 +60,43 @@
 
 <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-5 g-4">
-        <!-- Card Dokter -->
-        <div class="col">
-            <div class="doctor-card">
-                <img src="https://assets.pikiran-rakyat.com/crop/0x0:720x449/220x140/photo/2021/09/08/3413986819.jpg" alt="dr. Tirta Cipeng" class="doctor-img">
-                <div class="doctor-name">dr. Tirta Cipeng</div>
-                <div class="doctor-desc">Dokter umum berpengalaman dalam diagnosis penyakit ringan hingga kronis.</div>
-                <div class="doctor-footer">
-                    <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter1">Selengkapnya ..</button>
+        @foreach ($dokters as $dokter)
+            <div class="col">
+                <div class="doctor-card">
+                    <img src="{{ asset('storage/' . $dokter->foto) }}" alt="{{ $dokter->nama }}" class="doctor-img"
+                        onerror="this.src='https://via.placeholder.com/200x200'" />
+                    <div class="doctor-name">{{ $dokter->nama }}</div>
+                    <div class="doctor-desc">{{ $dokter->deskripsi }}</div>
+                    <div class="doctor-footer">
+                        <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter{{ $dokter->id_dokter }}">
+                            Selengkapnya ..
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col">
-            <div class="doctor-card">
-                <img src="https://i.pinimg.com/736x/6c/59/95/6c599523460f54ddeba81f3cd689ae04.jpg" alt="dr. Citra Ardianti" class="doctor-img">
-                <div class="doctor-name">dr. Citra Ardianti, M.Gz</div>
-                <div class="doctor-desc">Ahli gizi dengan pendekatan terapi nutrisi individual.</div>
-                <div class="doctor-footer">
-                    <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter2">Selengkapnya ..</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="doctor-card">
-                <img src="https://i.pinimg.com/736x/4c/ee/6c/4cee6c22feeb033e76f96c293c48bb0a.jpg" alt="drg. Raka Dwi" class="doctor-img">
-                <div class="doctor-name">drg. Raka Dwi Santosa</div>
-                <div class="doctor-desc">Dokter gigi dengan keahlian dalam perawatan estetik dan konservatif.</div>
-                <div class="doctor-footer">
-                    <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter3">Selengkapnya ..</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="doctor-card">
-                <img src="https://i.pinimg.com/736x/f2/75/21/f2752143d53dfa7e80e785b069734539.jpg" alt="dr. Maya Putri" class="doctor-img">
-                <div class="doctor-name">dr. Maya Putri Saraswati, Sp.KJ</div>
-                <div class="doctor-desc">Psikiater yang menangani kesehatan mental dan emosional.</div>
-                <div class="doctor-footer">
-                    <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter4">Selengkapnya ..</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="doctor-card">
-                <img src="https://i.pinimg.com/736x/c2/db/2d/c2db2da630a1d117a3e1297ed7fd9b96.jpg" alt="dr. Aldi Rinaldi" class="doctor-img">
-                <div class="doctor-name">dr. Aldi Rinaldi</div>
-                <div class="doctor-desc">Dokter umum dengan spesialisasi pada penanganan penyakit tropis.</div>
-                <div class="doctor-footer">
-                    <button class="custom-btn" data-bs-toggle="modal" data-bs-target="#modalDokter5">Selengkapnya ..</button>
-                </div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
+
+    <!-- Modal Dokter (diletakkan di luar row agar tidak merusak grid) -->
+    @foreach ($dokters as $dokter)
+        <div class="modal fade" id="modalDokter{{ $dokter->id_dokter }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ $dokter->nama }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ asset('storage/' . $dokter->foto) }}" alt="{{ $dokter->nama }}" class="img-fluid mb-3"
+                            onerror="this.src='https://via.placeholder.com/400x300'" />
+                        <p>{{ $dokter->deskripsi }}</p>
+                        <p><strong>Spesialis:</strong> {{ $dokter->spesialis }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 </div>
