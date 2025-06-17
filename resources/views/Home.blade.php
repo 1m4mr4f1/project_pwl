@@ -11,15 +11,19 @@
     <x-AboutUs id="AboutUs"></x-AboutUs>
     <x-DaftarLayanan></x-DaftarLayanan>
     <x-PelayananKami id="OurService"></x-PelayananKami>
-   <x-OurDoctors :dokters="$dokters" />
-
+    <x-OurDoctors :dokters="$dokters" />
     <x-JadwalDokter id="JadwalDokter"></x-JadwalDokter>
-    <x-Antrian id="Antrian"></x-Antrian>
 
+    {{-- Kirim data antrian ke komponen --}}
+
+    <x-Antrian :antrians="$antrians" id="Antrian" />
 
 
 
     <x-Footer></x-Footer>
-
 </body>
 </html>
+
+
+
+

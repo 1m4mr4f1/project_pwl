@@ -24,11 +24,13 @@
         border-radius: 10px;
         padding: 16px;
         background-color: #fff;
+        height: 400px; /* ❗️Tinggi tetap */
+        overflow: hidden;
     }
 
     .doctor-img {
         width: 100%;
-        height: 200px;
+        height: 160px;
         object-fit: cover;
         border-radius: 10px;
     }
@@ -36,17 +38,21 @@
     .doctor-name {
         font-weight: 600;
         font-size: 1.1rem;
-        margin-top: 15px;
+        margin-top: 12px;
         text-align: center;
-        min-height: 3.2em;
+        text-wrap: balance;
     }
 
     .doctor-desc {
-        flex-grow: 1;
         text-align: center;
         margin-top: 10px;
         font-size: 0.95rem;
-        min-height: 4.5em;
+        height: 4.5em; /* ❗️Tetap & terpotong */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* ❗️Tampilkan hanya 3 baris */
+        -webkit-box-orient: vertical;
     }
 
     .doctor-footer {
@@ -77,7 +83,7 @@
         @endforeach
     </div>
 
-    <!-- Modal Dokter (diletakkan di luar row agar tidak merusak grid) -->
+    <!-- Modal Dokter -->
     @foreach ($dokters as $dokter)
         <div class="modal fade" id="modalDokter{{ $dokter->id_dokter }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">

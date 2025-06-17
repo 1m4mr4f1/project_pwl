@@ -217,32 +217,46 @@
                         </div>
                     </div>
 
-                    <!-- SECTION: Antrian -->
-                    <div>
-                        <h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Poli</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ahmad Fauzan</td>
-                                    <td>A11.2022.12345</td>
-                                    <td>Poli Umum</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i> Hapus</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                   <h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>No</th>
+            <th>NIM</th>
+            <th>Poli</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($antrians as $index => $antrian)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $antrian->nim }}</td>
+                <td>
+                    @switch($antrian->id_poli)
+                        @case(1) Poli Umum @break
+                        @case(2) Poli Gigi @break
+                        @case(3) Poli Gizi @break
+                        @case(4) Poli Jiwa @break
+                        @default Tidak Diketahui
+                    @endswitch
+                </td>
+                <td>
+                    <form action="{{ route('admin.antrian.destroy', ['nomor_antrian' => $antrian->nomor_antrian]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus antrian ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i> Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="4" class="text-center">Tidak ada antrian hari ini.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
 <!-- Modal Tambah Dokter --><div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form class="modal-content" method="POST" action="{{ route('dokter.store') }}" enctype="multipart/form-data">
