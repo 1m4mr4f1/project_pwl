@@ -217,7 +217,17 @@
                         </div>
                     </div>
 
-                   <h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
+<h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
+
+@php
+    $daftarPoli = [
+        'PUM' => 'Poli Umum',
+        'PGG' => 'Poli Gigi',
+        'PGZ' => 'Poli Gizi',
+        'PKM' => 'Poli Jiwa'
+    ];
+@endphp
+
 <table class="table table-bordered">
     <thead class="table-light">
         <tr>
@@ -232,15 +242,7 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $antrian->nim }}</td>
-                <td>
-                    @switch($antrian->id_poli)
-                        @case(1) Poli Umum @break
-                        @case(2) Poli Gigi @break
-                        @case(3) Poli Gizi @break
-                        @case(4) Poli Jiwa @break
-                        @default Tidak Diketahui
-                    @endswitch
-                </td>
+                <td>{{ $daftarPoli[$antrian->id_poli] ?? 'Tidak Diketahui' }}</td>
                 <td>
                     <form action="{{ route('admin.antrian.destroy', ['nomor_antrian' => $antrian->nomor_antrian]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus antrian ini?')">
                         @csrf
@@ -256,6 +258,7 @@
         @endforelse
     </tbody>
 </table>
+
 
 <!-- Modal Tambah Dokter --><div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel" aria-hidden="true">
     <div class="modal-dialog">
