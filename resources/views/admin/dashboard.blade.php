@@ -220,6 +220,13 @@
 <h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
 
 @php
+    $kodePoli = [
+        1 => 'PUM',
+        2 => 'PGG',
+        3 => 'PGZ',
+        4 => 'PKM'
+    ];
+
     $daftarPoli = [
         'PUM' => 'Poli Umum',
         'PGG' => 'Poli Gigi',
@@ -228,36 +235,42 @@
     ];
 @endphp
 
-<table class="table table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th>No</th>
-            <th>NIM</th>
-            <th>Poli</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse($antrians as $index => $antrian)
+@isset($antrians)
+    <table class="table table-bordered">
+        <thead class="table-light">
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $antrian->nim }}</td>
-                <td>{{ $daftarPoli[$antrian->id_poli] ?? 'Tidak Diketahui' }}</td>
-                <td>
-                    <form action="{{ route('admin.antrian.destroy', ['nomor_antrian' => $antrian->nomor_antrian]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus antrian ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i> Hapus</button>
-                    </form>
-                </td>
+                <th>No</th>
+                <th>NIM</th>
+                <th>Poli</th>
+                <th>Aksi</th>
             </tr>
-        @empty
-            <tr>
-                <td colspan="4" class="text-center">Tidak ada antrian hari ini.</td>
-            </tr>
-        @endforelse
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @forelse($antrians as $index => $antrian)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $antrian->nim }}</td>
+                    <td>
+                        {{ $daftarPoli[$kodePoli[$antrian->id_poli] ?? ''] ?? 'Tidak Diketahui' }}
+                    </td>
+                    <td>
+                        <form action="{{ route('admin.antrian.destroy', ['nomor_antrian' => $antrian->nomor_antrian]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus antrian ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i> Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada antrian hari ini.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+@else
+    <div class="alert alert-warning">Data antrian tidak tersedia.</div>
+@endisset
 
 
 <!-- Modal Tambah Dokter --><div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel" aria-hidden="true">

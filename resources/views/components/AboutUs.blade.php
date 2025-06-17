@@ -51,8 +51,8 @@
     <div class="row align-items-center">
         <!-- Bagian Teks -->
         <div class="col-md-6 hero-text">
-            <h1>Klinik 24 siap melayani keluhan masyarakat selama 24/7.</h1>
-            <p>Rumah sakit adalah bagian integral dari suatu organisasi sosial dan kesehatan dengan fungsi menyediakan pelayanan paripurna (komprehensif).</p>
+            <h1>Poliklinik Udinus – Solusi Kesehatan Mahasiswa dan Sivitas Kampus.</h1>
+            <p>Melayani dengan profesionalitas, empati, dan komitmen tinggi untuk memastikan setiap anggota sivitas akademika Udinus mendapatkan layanan kesehatan yang cepat, tepat, dan berkualitas. (komprehensif).</p>
             <a href="#OurService" class="btn hero-btn">
                 <i class="bi bi-stethoscope"></i> Lihat Layanan
             </a>

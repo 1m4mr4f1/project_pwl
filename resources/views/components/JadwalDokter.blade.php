@@ -14,41 +14,56 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- POLI UMUM -->
                     <tr>
-                        <td>Poli Umum</td>
-                        <td>dr. Cipeng</td>
-                        <td>Senin, Rabu, Kamis</td>
-                        <td>12:00 - 15:30</td>
+                        <td rowspan="2">Poli Umum</td>
+                        <td>dr. Andika Pratama</td>
+                        <td>Senin, Selasa, Rabu</td>
+                        <td>08:00 - 11:30</td>
                     </tr>
                     <tr>
-                        <td>Poli Gizi</td>
-                        <td>dr. Rina Dewi</td>
-                        <td>Senin, Rabu</td>
-                        <td>08:00 - 11:00</td>
+                        <td>dr. Cipengzz</td>
+                        <td>Kamis, Jumat</td>
+                        <td>08:00 - 11:30</td>
                     </tr>
+
+                    <!-- POLI GIGI -->
                     <tr>
-                        <td>Poli Gigi</td>
-                        <td>drg. Nina Zahra</td>
-                        <td>Selasa, Kamis</td>
+                        <td rowspan="2">Poli Gigi</td>
+                        <td>drg. Wilona Margadewi, Sp.KG</td>
+                        <td>Senin, Rabu, Jumat</td>
                         <td>09:00 - 12:00</td>
                     </tr>
                     <tr>
-                        <td>Poli Jiwa</td>
-                        <td>dr. Dimas Santoso</td>
-                        <td>Selasa, Jumat</td>
+                        <td>drg. Amanda Kartika, Sp.Ort</td>
+                        <td>Selasa, Kamis</td>
                         <td>10:00 - 13:00</td>
                     </tr>
+
+                    <!-- POLI GIZI -->
                     <tr>
-                        <td>Poli Umum</td>
-                        <td>dr. Ayu Sari</td>
-                        <td>Selasa, Jumat</td>
-                        <td>13:00 - 15:00</td>
+                        <td rowspan="2">Poli Gizi</td>
+                        <td>dr. Ayu Pramesti, M.Gz</td>
+                        <td>Senin, Rabu, Jumat</td>
+                        <td>08:00 - 11:00</td>
                     </tr>
                     <tr>
-                        <td>Poli Gizi</td>
-                        <td>dr. Rudi Hartono</td>
-                        <td>Kamis, Jumat</td>
-                        <td>08:30 - 11:30</td>
+                        <td>dr. Rafiqah Ramadani, S.Gz</td>
+                        <td>Selasa, Kamis</td>
+                        <td>13:00 - 15:00</td>
+                    </tr>
+
+                    <!-- POLI JIWA -->
+                    <tr>
+                        <td rowspan="2">Poli Jiwa</td>
+                        <td>dr. Nadya Ardelia, Sp.KJ</td>
+                        <td>Senin, Rabu, Jumat</td>
+                        <td>10:00 - 12:30</td>
+                    </tr>
+                    <tr>
+                        <td>dr. Yoga Hermawan, Sp.KJ</td>
+                        <td>Selasa, Kamis</td>
+                        <td>09:00 - 12:00</td>
                     </tr>
                 </tbody>
             </table>
