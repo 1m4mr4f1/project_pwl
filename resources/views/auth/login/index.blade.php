@@ -68,7 +68,7 @@
             </div>
         </form>
 
-        <p class="text-center">Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></p>
+        <p class="text-center"><a href="{{ route('register') }}"></a></p>
     </div>
 
     <!-- Link ke Bootstrap JS -->

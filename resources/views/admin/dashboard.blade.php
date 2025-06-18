@@ -108,126 +108,139 @@
 </div>
 
 
-                    <!-- SECTION: Mahasiswa -->
-                    <div class="mb-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4>Manajemen Mahasiswa</h4>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahMahasiswa">
-                                <i class="bi bi-plus-circle"></i> Tambah Mahasiswa
-                            </button>
-                        </div>
+                   <!-- SECTION: Mahasiswa -->
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Manajemen Mahasiswa</h4>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahMahasiswa">
+            <i class="bi bi-plus-circle"></i> Tambah Mahasiswa
+        </button>
+    </div>
 
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Prodi</th>
-                                    <th>Status Aktif</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($mahasiswa as $mhs)
-                                <tr>
-                                    <td>{{ $mhs->nama }}</td>
-                                    <td>{{ $mhs->nim }}</td>
-                                    <td>{{ $mhs->prodi }}</td>
-                                    <td>{{ $mhs->status_aktif ? 'Aktif' : 'Tidak Aktif' }}</td>
-                                    <td>
-                                        <!-- Edit Button (opsional) -->
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditMahasiswa{{ $mhs->nim }}">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Prodi</th>
+                <th>Status Aktif</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($mahasiswa as $mhs)
+            <tr>
+                <td>{{ $mhs->nama }}</td>
+                <td>{{ $mhs->nim }}</td>
+                <td>{{ $mhs->prodi }}</td>
+                <td>{{ $mhs->status_aktif ? 'Aktif' : 'Tidak Aktif' }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <button class="btn btn-sm btn-warning btn-edit-mhs"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalEditMahasiswa"
+                        data-nim="{{ $mhs->nim }}"
+                        data-nama="{{ $mhs->nama }}"
+                        data-prodi="{{ $mhs->prodi }}"
+                        data-status="{{ $mhs->status_aktif }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
 
-                                        <!-- Delete Form -->
-                                        <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Yakin ingin menghapus mahasiswa ini?')">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                    <!-- Delete Form -->
+                    <form action="{{ route('mahasiswa.destroy', $mhs->nim) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger"
+                            onclick="return confirm('Yakin ingin menghapus mahasiswa ini?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-                                <!-- Modal Edit Mahasiswa -->
-                                <div class="modal fade" id="modalEditMahasiswa{{ $mhs->nim }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <form action="{{ route('mahasiswa.update', $mhs->nim) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Mahasiswa</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input name="nama" class="form-control mb-2" value="{{ $mhs->nama }}"
-                                                        placeholder="Nama" required />
-                                                    <input name="prodi" class="form-control mb-2" value="{{ $mhs->prodi }}"
-                                                        placeholder="Prodi" required />
-                                                    <select name="status_aktif" class="form-control" required>
-                                                        <option value="1" {{ $mhs->status_aktif ? 'selected' : '' }}>
-                                                            Aktif</option>
-                                                        <option value="0" {{ !$mhs->status_aktif ? 'selected' : '' }}>
-                                                            Tidak Aktif</option>
-                                                    </select>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-primary" type="submit">Simpan
-                                                        Perubahan</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+<!-- Modal Tambah Mahasiswa -->
+<div class="modal fade" id="modalTambahMahasiswa" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ route('mahasiswa.store') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Mahasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input name="nim" class="form-control mb-2" placeholder="NIM" required />
+                    <input name="nama" class="form-control mb-2" placeholder="Nama" required />
+                    <input name="prodi" class="form-control mb-2" placeholder="Prodi" required />
+                    <select name="status_aktif" class="form-control" required>
+                        <option value="1">Aktif</option>
+                        <option value="0">Tidak Aktif</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Tambah</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-                    <!-- Modal Tambah Mahasiswa -->
-                    <div class="modal fade" id="modalTambahMahasiswa" tabindex="-1">
-                        <div class="modal-dialog">
-                            <form action="{{ route('mahasiswa.store') }}" method="POST">
-                                @csrf
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Tambah Mahasiswa</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input name="nim" class="form-control mb-2" placeholder="NIM" required />
-                                        <input name="nama" class="form-control mb-2" placeholder="Nama" required />
-                                        <input name="prodi" class="form-control mb-2" placeholder="Prodi" required />
-                                        <select name="status_aktif" class="form-control" required>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit">Tambah</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+<!-- Modal Edit Mahasiswa (Reusable) -->
+<div class="modal fade" id="modalEditMahasiswa" tabindex="-1">
+    <div class="modal-dialog">
+        <form id="formEditMahasiswa" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Mahasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input name="nama" id="editNama" class="form-control mb-2" placeholder="Nama" required />
+                    <input name="prodi" id="editProdi" class="form-control mb-2" placeholder="Prodi" required />
+                    <select name="status_aktif" id="editStatus" class="form-control" required>
+                        <option value="1">Aktif</option>
+                        <option value="0">Tidak Aktif</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript: Set data ke modal edit -->
+<script>
+    document.querySelectorAll('.btn-edit-mhs').forEach(button => {
+        button.addEventListener('click', function () {
+            const nim = this.dataset.nim;
+            const nama = this.dataset.nama;
+            const prodi = this.dataset.prodi;
+            const status = this.dataset.status;
+
+            const form = document.getElementById('formEditMahasiswa');
+            form.action = `/mahasiswa/${nim}`; // pastikan ini sesuai route update kamu
+
+            document.getElementById('editNama').value = nama;
+            document.getElementById('editProdi').value = prodi;
+            document.getElementById('editStatus').value = status;
+        });
+    });
+</script>
+
 
 <h4 class="mb-3">Manajemen Antrian Hari Ini</h4>
 
 @php
-    $kodePoli = [
-        1 => 'PUM',
-        2 => 'PGG',
-        3 => 'PGZ',
-        4 => 'PKM'
-    ];
-
-    $daftarPoli = [
+    // Mapping kode poli ke nama lengkap
+    $namaPoli = [
         'PUM' => 'Poli Umum',
         'PGG' => 'Poli Gigi',
         'PGZ' => 'Poli Gizi',
@@ -250,14 +263,14 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $antrian->nim }}</td>
-                    <td>
-                        {{ $daftarPoli[$kodePoli[$antrian->id_poli] ?? ''] ?? 'Tidak Diketahui' }}
-                    </td>
+                    <td>{{ $namaPoli[$antrian->id_poli] ?? 'Tidak Diketahui' }}</td>
                     <td>
                         <form action="{{ route('admin.antrian.destroy', ['nomor_antrian' => $antrian->nomor_antrian]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus antrian ini?')">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger"><i class="bi bi-x-circle"></i> Hapus</button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="bi bi-x-circle"></i> Hapus
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -271,6 +284,7 @@
 @else
     <div class="alert alert-warning">Data antrian tidak tersedia.</div>
 @endisset
+
 
 
 <!-- Modal Tambah Dokter --><div class="modal fade" id="modalTambahDokter" tabindex="-1" aria-labelledby="modalTambahDokterLabel" aria-hidden="true">
