@@ -12,7 +12,9 @@
     <x-DaftarLayanan></x-DaftarLayanan>
     <x-PelayananKami id="OurService"></x-PelayananKami>
     <x-OurDoctors :dokters="$dokters" />
-    <x-JadwalDokter id="JadwalDokter"></x-JadwalDokter>
+
+    <x-JadwalDokter :jadwals="$jadwals" id="JadwalDokter" />
+
 
     {{-- Kirim data antrian ke komponen --}}
 

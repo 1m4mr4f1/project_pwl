@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Dokter;
 use App\Models\Poli;
+use App\Models\JadwalDokter;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -13,28 +14,35 @@ class AdminController extends Controller
     // Menampilkan halaman dashboard admin
     public function index()
     {
-        // Jika belum login sebagai admin, redirect ke halaman login
+        // Cek apakah sudah login sebagai admin
         if (!session('admin')) {
             return redirect()->route('login');
         }
 
-        // Ambil data dari database
-        $dokters = Dokter::all();
+        // Ambil data dari semua tabel yang dibutuhkan
+        $dokters   = Dokter::all();
         $mahasiswa = Mahasiswa::all();
-        $polis = Poli::all();
+        $polis     = Poli::all();
+        $jadwals   = JadwalDokter::with('dokter.poli')->get();
 
-        // Ambil data antrian hari ini dari tabel antrian
+        // Ambil data antrian hari ini
         $antrians = DB::table('antrian')
             ->whereDate('tanggal', today())
             ->select('nomor_antrian', 'nim', 'id_poli')
             ->orderBy('id_poli')
             ->get();
 
-
-        return view('admin.dashboard', compact('mahasiswa', 'dokters', 'polis', 'antrians'));
+        // Kirim semua data ke dashboard view
+        return view('admin.dashboard', compact(
+            'dokters',
+            'mahasiswa',
+            'polis',
+            'antrians',
+            'jadwals'
+        ));
     }
 
-    // Jika nanti ingin halaman khusus kelola mahasiswa
+    // Halaman khusus untuk kelola mahasiswa (opsional)
     public function kelolaMahasiswa()
     {
         $mahasiswa = Mahasiswa::all();

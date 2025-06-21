@@ -48,10 +48,15 @@
         <h1 class="text-center text-primary">Welcome, {{ session('admin')->username }}!</h1>
         <p class="text-center">Anda berhasil login sebagai admin.</p>
 
-        <div class="card">
+     <div class="card">
             <div class="card-header">
                 <h2 class="text-center">Dashboard Admin E Poliklinik Udinus</h2>
             </div>
+
+            <a href="/login" class="btn btn-danger w-100">
+                <i class="bi bi-box-arrow-left"></i> Logout
+            </a>
+
             <div class="card-body">
                 <div class="mt-4 container">
 
@@ -361,14 +366,7 @@
 
             </div>
 
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-danger" type="button" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i> Batal
-                </button>
-                <button class="btn btn-sm btn-primary" type="submit">
-                    <i class="bi bi-check-circle"></i> Simpan
-                </button>
-            </div>
+
         </form>
     </div>
 </div>
@@ -463,6 +461,65 @@
         </form>
     </div>
 </div>
+
+<hr>
+<h4 class="mt-5 fw-bold">Manajemen Jadwal Dokter</h4>
+
+<!-- Form Tambah -->
+<form action="{{ route('admin.jadwal.store') }}" method="POST" class="row g-2 mb-3 mt-3">
+    @csrf
+    <div class="col-md-4">
+        <select name="id_dokter" class="form-select" required>
+            <option value="">-- Pilih Dokter --</option>
+            @foreach ($dokters as $dokter)
+                <option value="{{ $dokter->id_dokter }}">{{ $dokter->nama }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="hari_jaga" class="form-control" placeholder="Hari (Senin, Rabu)" required>
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="jam" class="form-control" placeholder="Jam (08:00 - 11:00)" required>
+    </div>
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-primary">Tambah</button>
+    </div>
+</form>
+
+@if(isset($jadwals) && $jadwals->count())
+    <h3>Manajemen Jadwal Dokter</h3>
+
+    <!-- Tabel Jadwal -->
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Nama Dokter</th>
+                <th>Hari Jaga</th>
+                <th>Jam</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jadwals as $jadwal)
+            <tr>
+                <td>{{ $jadwal->dokter->nama }}</td>
+                <td>{{ $jadwal->hari_jaga }}</td>
+                <td>{{ $jadwal->jam }}</td>
+                <td>
+                    <form method="POST" action="{{ route('admin.jadwal.destroy', $jadwal->id_jadwal) }}">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin hapus?')">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endif
+
+
+
 
 
                 </div>

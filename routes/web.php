@@ -9,6 +9,8 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AntrianAdminController;
+use App\Http\Controllers\JadwalDokterController;
+use App\Http\Controllers\JadwalDokterAdminController;
 
 
 // =======================
@@ -84,4 +86,27 @@ Route::post('/pendaftaran', [PoliklinikController::class, 'processForm'])->name(
 // Admin - Antrian Hari Ini
 Route::get('/admin/antrian', [AntrianAdminController::class, 'index'])->name('admin.antrian');
 Route::delete('/admin/antrian/{nomor_antrian}', [AntrianAdminController::class, 'destroy'])->name('admin.antrian.destroy');
+
+
+// Manajemen Jadwal Dokter
+
+
+Route::get('/admin/jadwal', [JadwalDokterController::class, 'index'])->name('jadwal.index');
+Route::get('/admin/jadwal/create', [JadwalDokterController::class, 'create'])->name('jadwal.create');
+Route::post('/admin/jadwal', [JadwalDokterController::class, 'store'])->name('jadwal.store');
+Route::get('/admin/jadwal/{id}/edit', [JadwalDokterController::class, 'edit'])->name('jadwal.edit');
+Route::put('/admin/jadwal/{id}', [JadwalDokterController::class, 'update'])->name('jadwal.update');
+Route::delete('/admin/jadwal/{id}', [JadwalDokterController::class, 'destroy'])->name('jadwal.destroy');
+
+// Manajemen Jadwal Dokter
+Route::get('/admin/jadwal-dokter', [\App\Http\Controllers\Admin\JadwalDokterController::class, 'index'])->name('admin.jadwal.index');
+Route::post('/admin/jadwal-dokter', [\App\Http\Controllers\Admin\JadwalDokterController::class, 'store'])->name('admin.jadwal.store');
+Route::delete('/admin/jadwal-dokter/{id}', [\App\Http\Controllers\Admin\JadwalDokterController::class, 'destroy'])->name('admin.jadwal.destroy');
+
+// Manajemen Jadwal Dokter di dashboard
+
+
+Route::post('/admin/jadwal', [JadwalDokterAdminController::class, 'store'])->name('admin.jadwal.store');
+Route::delete('/admin/jadwal/{id}', [JadwalDokterAdminController::class, 'destroy'])->name('admin.jadwal.destroy');
+
 
